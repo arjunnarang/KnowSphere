@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 
@@ -40,7 +41,7 @@ public class DocumentController {
             description = "This endpoint is used to upload documents to index and create vectors and embeddings"
     )
     public ResponseEntity<ApiResponse<DocumentResponseDto>> uploadDocument(
-            @RequestParam("file") Multipart file
+            @RequestParam("file") MultipartFile file
     ){
 
         DocumentResponseDto documentResponseDto = this.documentMetadataService.uploadAndProcess(file);
