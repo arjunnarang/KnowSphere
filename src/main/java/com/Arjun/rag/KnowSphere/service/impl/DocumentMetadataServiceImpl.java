@@ -6,7 +6,6 @@ import com.Arjun.rag.KnowSphere.entity.DocumentStatus;
 import com.Arjun.rag.KnowSphere.repository.DocumentMetadataRepo;
 import com.Arjun.rag.KnowSphere.service.abstraction.DocumentMetadataService;
 import lombok.RequiredArgsConstructor;
-import org.apache.james.mime4j.dom.Multipart;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ai.document.Document;
@@ -23,6 +22,8 @@ public class DocumentMetadataServiceImpl implements DocumentMetadataService {
     private final static Logger log = LoggerFactory.getLogger(DocumentMetadataServiceImpl.class);
 
     private final DocumentMetadataRepo documentMetadataRepo;
+    private final DocumentParserService parserService;
+    public final DocumentIngestService ingestService;
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -44,10 +45,10 @@ public class DocumentMetadataServiceImpl implements DocumentMetadataService {
         DocumentMetadata savedDocumentMetadata = documentMetadataRepo.save(documentMetadata);
 
         //parsing the file
-       // List<Document> parsedDocs = parserService.parse(file);
+       List<Document> parsedDocs = parserService.parse(file);
 
         //ingesting the file
-        //int chunksCreated = ingestService.ingest(savedDocumentMetadata, parsedDocs);
+        int chunksCreated = ingestService.ingest(savedDocumentMetadata, parsedDocs);
 
         return DocumentResponseDto.builder()
                 .id(savedDocumentMetadata.getId())
