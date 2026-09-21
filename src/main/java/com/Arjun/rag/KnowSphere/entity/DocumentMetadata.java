@@ -36,6 +36,19 @@ public class DocumentMetadata {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+//    @PrePersist
+//    void creationDate(){
+//        if(createdAt == null){
+//            createdAt = LocalDateTime.now();
+//
+//        }
+//        updatedAt = LocalDateTime.now();
+//    }
+//
+//    @PreUpdate
+//    void updationDate(){
+//        updatedAt = LocalDateTime.now();
+//    }
     public UUID getId() {
         return id;
     }

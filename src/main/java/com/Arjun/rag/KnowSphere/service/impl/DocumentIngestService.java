@@ -100,9 +100,10 @@ public class DocumentIngestService {
             //adding new chunk list into vectorstore db
             vectorStore.add(enrichedChunks);
 
-            //4. update document status to indexed
+            //4. update document status to indexed and chunks size
             metadata.setStatus(DocumentStatus.INDEXED);
             metadata.setErrorMessage(null);
+            metadata.setChunks(enrichedChunks.size());
             documentMetadataRepo.save(metadata);
 
             return enrichedChunks.size();

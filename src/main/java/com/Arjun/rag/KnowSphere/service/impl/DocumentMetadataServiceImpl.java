@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -39,6 +40,7 @@ public class DocumentMetadataServiceImpl implements DocumentMetadataService {
                 .contentType(contentType)
                 .status(DocumentStatus.UPLOADING)
                 .fileSize(file.getSize())
+                .createdAt(LocalDateTime.now())
                 .build();
 
         //saving the document meta data
@@ -55,6 +57,7 @@ public class DocumentMetadataServiceImpl implements DocumentMetadataService {
                 .fileName(fileName)
                 .fileSize(savedDocumentMetadata.getFileSize())
                 .status(documentMetadata.getStatus())
+                .chunksCreated(chunksCreated)
                 .message("Documents uploaded and processed")
                 .build();
     }
